@@ -32,21 +32,12 @@ type Payload struct {
 }
 
 type aps struct {
-	Alert             interface{}        `json:"alert,omitempty"`
-	Badge             interface{}        `json:"badge,omitempty"`
-	Category          string             `json:"category,omitempty"`
-	ContentAvailable  int                `json:"content-available,omitempty"`
-	InterruptionLevel EInterruptionLevel `json:"interruption-level,omitempty"`
-	MutableContent    int                `json:"mutable-content,omitempty"`
-	RelevanceScore    interface{}        `json:"relevance-score,omitempty"`
-	Sound             interface{}        `json:"sound,omitempty"`
-	ThreadID          string             `json:"thread-id,omitempty"`
-	URLArgs           []string           `json:"url-args,omitempty"`
-	Timestamp         int64              `json:"timestamp"`
-	Event             string             `json:"event"`
-	ContentState      interface{}        `json:"content_state"`
-	AttributesType    string             `json:"attributes_type"`
-	Attributes        interface{}        `json:"attributes"`
+	Alert          interface{} `json:"alert,omitempty"`
+	Timestamp      int64       `json:"timestamp"`
+	Event          string      `json:"event"`
+	ContentState   interface{} `json:"content_state"`
+	AttributesType string      `json:"attributes_type"`
+	Attributes     interface{} `json:"attributes"`
 }
 
 type alert struct {
@@ -64,12 +55,6 @@ type alert struct {
 	SummaryArgCount int      `json:"summary-arg-count,omitempty"`
 }
 
-type sound struct {
-	Critical int     `json:"critical,omitempty"`
-	Name     string  `json:"name,omitempty"`
-	Volume   float32 `json:"volume,omitempty"`
-}
-
 // NewPayload returns a new Payload struct
 func NewPayload() *Payload {
 	return &Payload{
@@ -85,63 +70,6 @@ func NewPayload() *Payload {
 //	{"aps":{"alert":alert}}`
 func (p *Payload) Alert(alert interface{}) *Payload {
 	p.aps().Alert = alert
-	return p
-}
-
-// Badge sets the aps badge on the payload.
-// This will display a numeric badge on the app icon.
-//
-//	{"aps":{"badge":b}}
-func (p *Payload) Badge(b int) *Payload {
-	p.aps().Badge = b
-	return p
-}
-
-// ZeroBadge sets the aps badge on the payload to 0.
-// This will clear the badge on the app icon.
-//
-//	{"aps":{"badge":0}}
-func (p *Payload) ZeroBadge() *Payload {
-	p.aps().Badge = 0
-	return p
-}
-
-// UnsetBadge removes the badge attribute from the payload.
-// This will leave the badge on the app icon unchanged.
-// If you wish to clear the app icon badge, use ZeroBadge() instead.
-//
-//	{"aps":{}}
-func (p *Payload) UnsetBadge() *Payload {
-	p.aps().Badge = nil
-	return p
-}
-
-// Sound sets the aps sound on the payload.
-// This will play a sound from the app bundle, or the default sound otherwise.
-//
-//	{"aps":{"sound":sound}}
-func (p *Payload) Sound(sound interface{}) *Payload {
-	p.aps().Sound = sound
-	return p
-}
-
-// ContentAvailable sets the aps content-available on the payload to 1.
-// This will indicate to the app that there is new content available to download
-// and launch the app in the background.
-//
-//	{"aps":{"content-available":1}}
-func (p *Payload) ContentAvailable() *Payload {
-	p.aps().ContentAvailable = 1
-	return p
-}
-
-// MutableContent sets the aps mutable-content on the payload to 1.
-// This will indicate to the to the system to call your Notification Service
-// extension to mutate or replace the notification's content.
-//
-//	{"aps":{"mutable-content":1}}
-func (p *Payload) MutableContent() *Payload {
-	p.aps().MutableContent = 1
 	return p
 }
 
@@ -287,101 +215,12 @@ func (p *Payload) AlertSummaryArgCount(key int) *Payload {
 	return p
 }
 
-// General
-
-// Category sets the aps category on the payload.
-// This is a string value that represents the identifier property of the
-// UIMutableUserNotificationCategory object you created to define custom actions.
-//
-//	{"aps":{"category":category}}
-func (p *Payload) Category(category string) *Payload {
-	p.aps().Category = category
-	return p
-}
-
 // Mdm sets the mdm on the payload.
 // This is for Apple Mobile Device Management (mdm) payloads.
 //
 //	{"aps":{}:"mdm":mdm}
 func (p *Payload) Mdm(mdm string) *Payload {
 	p.content["mdm"] = mdm
-	return p
-}
-
-// ThreadID sets the aps thread id on the payload.
-// This is for the purpose of updating the contents of a View Controller in a
-// Notification Content app extension when a new notification arrives. If a
-// new notification arrives whose thread-id value matches the thread-id of the
-// notification already being displayed, the didReceiveNotification method
-// is called.
-//
-//	{"aps":{"thread-id":id}}
-func (p *Payload) ThreadID(threadID string) *Payload {
-	p.aps().ThreadID = threadID
-	return p
-}
-
-// URLArgs sets the aps category on the payload.
-// This specifies an array of values that are paired with the placeholders
-// inside the urlFormatString value of your website.json file.
-// See Apple Notification Programming Guide for Websites.
-//
-//	{"aps":{"url-args":urlArgs}}
-func (p *Payload) URLArgs(urlArgs []string) *Payload {
-	p.aps().URLArgs = urlArgs
-	return p
-}
-
-// SoundName sets the name value on the aps sound dictionary.
-// This function makes the notification a critical alert, which should be pre-approved by Apple.
-// See: https://developer.apple.com/contact/request/notifications-critical-alerts-entitlement/
-//
-// {"aps":{"sound":{"critical":1,"name":name,"volume":1.0}}}
-func (p *Payload) SoundName(name string) *Payload {
-	p.aps().sound().Name = name
-	return p
-}
-
-// SoundVolume sets the volume value on the aps sound dictionary.
-// This function makes the notification a critical alert, which should be pre-approved by Apple.
-// See: https://developer.apple.com/contact/request/notifications-critical-alerts-entitlement/
-//
-// {"aps":{"sound":{"critical":1,"name":"default","volume":volume}}}
-func (p *Payload) SoundVolume(volume float32) *Payload {
-	p.aps().sound().Volume = volume
-	return p
-}
-
-// InterruptionLevel defines the value for the payload aps interruption-level
-// This is to indicate the importance and delivery timing of a notification.
-// (Using InterruptionLevelCritical requires an approved entitlement from Apple.)
-// See: https://developer.apple.com/documentation/usernotifications/unnotificationinterruptionlevel/
-//
-// {"aps":{"interruption-level":passive}}
-func (p *Payload) InterruptionLevel(interruptionLevel EInterruptionLevel) *Payload {
-	p.aps().InterruptionLevel = interruptionLevel
-	return p
-}
-
-// The relevance score, a number between 0 and 1,
-// that the system uses to sort the notifications from your app.
-// The highest score gets featured in the notification summary.
-// See https://developer.apple.com/documentation/usernotifications/unnotificationcontent/3821031-relevancescore.
-//
-//	{"aps":{"relevance-score":0.1}}
-func (p *Payload) RelevanceScore(b float32) *Payload {
-	p.aps().RelevanceScore = b
-	return p
-}
-
-// Unsets the relevance score
-// that the system uses to sort the notifications from your app.
-// The highest score gets featured in the notification summary.
-// See https://developer.apple.com/documentation/usernotifications/unnotificationcontent/3821031-relevancescore.
-//
-//	{"aps":{"relevance-score":0.1}}
-func (p *Payload) UnsetRelevanceScore() *Payload {
-	p.aps().RelevanceScore = nil
 	return p
 }
 
@@ -426,11 +265,4 @@ func (a *aps) alert() *alert {
 		a.Alert = &alert{}
 	}
 	return a.Alert.(*alert)
-}
-
-func (a *aps) sound() *sound {
-	if _, ok := a.Sound.(*sound); !ok {
-		a.Sound = &sound{Critical: 1, Name: "default", Volume: 1.0}
-	}
-	return a.Sound.(*sound)
 }
