@@ -407,8 +407,8 @@ func (p *Payload) AttributesType(attributesType string) *Payload {
 
 func (p *Payload) Attributes() *Payload {
 	var obj = make(map[string]interface{})
-	data1, _ := json.MarshalIndent(obj, "", "") // 将
-	p.aps().Attributes = data1
+
+	p.aps().Attributes = obj
 	return p
 }
 
