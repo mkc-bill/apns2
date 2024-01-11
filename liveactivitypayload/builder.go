@@ -36,7 +36,7 @@ type aps struct {
 	Timestamp      int64       `json:"timestamp"`
 	Event          string      `json:"event"`
 	ContentState   interface{} `json:"content_state"`
-	AttributesType string      `json:"attributes_type"`
+	AttributesType string      `json:"attributes-type"`
 	Attributes     interface{} `json:"attributes"`
 }
 
