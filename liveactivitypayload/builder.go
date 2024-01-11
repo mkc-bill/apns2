@@ -400,7 +400,7 @@ func (p *Payload) ContentState(contentState interface{}) *Payload {
 }
 
 func (p *Payload) AttributesType(attributesType string) *Payload {
-	p.aps().Event = attributesType
+	p.aps().AttributesType = attributesType
 	return p
 }
 
