@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sideshow/apns2"
-	"github.com/sideshow/apns2/certificate"
+	"github.com/mkc-bill/apns2"
+	"github.com/mkc-bill/apns2/certificate"
 	"github.com/stretchr/testify/assert"
 )
 

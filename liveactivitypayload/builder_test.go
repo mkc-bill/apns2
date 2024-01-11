@@ -2,7 +2,7 @@ package payload1_test
 
 import (
 	"encoding/json"
-	. "github.com/sideshow/apns2/liveactivitypayload"
+	. "github.com/mkc-bill/apns2/liveactivitypayload"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
