@@ -129,6 +129,9 @@ type Response struct {
 	// Notification, this will be a new unique UUID which has been created by APNs.
 	ApnsID string
 
+	// liveacvitity returns the unique identifier of the notification.
+	ApnsUniqueId string
+
 	// If the value of StatusCode is 410, this is the last time at which APNs
 	// confirmed that the device token was no longer valid for the topic.
 	Timestamp Time

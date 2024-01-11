@@ -63,6 +63,9 @@ const (
 	// contact the MDM server. If you set this push type, you must use the topic
 	// from the UID attribute in the subject of your MDM push certificate.
 	PushTypeMDM EPushType = "mdm"
+
+	// LiveActivity is used for new notifications for ios.
+	LiveActivity EPushType = "liveactivity"
 )
 
 const (
