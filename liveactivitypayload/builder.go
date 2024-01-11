@@ -46,6 +46,7 @@ type aps struct {
 	Event             string             `json:"event"`
 	ContentState      interface{}        `json:"content_state"`
 	AttributesType    string             `json:"attributes_type"`
+	Attributes        interface{}        `json:"attributes"`
 }
 
 type alert struct {
@@ -401,6 +402,13 @@ func (p *Payload) ContentState(contentState interface{}) *Payload {
 
 func (p *Payload) AttributesType(attributesType string) *Payload {
 	p.aps().AttributesType = attributesType
+	return p
+}
+
+func (p *Payload) Attributes() *Payload {
+	var obj = make(map[string]interface{})
+	data1, _ := json.MarshalIndent(obj, "", "") // 将
+	p.aps().Attributes = data1
 	return p
 }
 
