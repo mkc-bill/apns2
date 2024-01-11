@@ -35,7 +35,7 @@ type aps struct {
 	Alert          interface{} `json:"alert,omitempty"`
 	Timestamp      int64       `json:"timestamp"`
 	Event          string      `json:"event"`
-	ContentState   interface{} `json:"content_state"`
+	ContentState   interface{} `json:"content-state"`
 	AttributesType string      `json:"attributes-type"`
 	Attributes     interface{} `json:"attributes"`
 }
