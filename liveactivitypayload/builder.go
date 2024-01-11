@@ -2,7 +2,9 @@
 // builder to make constructing notification payloads easier.
 package payload1
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // InterruptionLevel defines the value for the payload aps interruption-level
 type EInterruptionLevel string
@@ -379,6 +381,26 @@ func (p *Payload) RelevanceScore(b float32) *Payload {
 //	{"aps":{"relevance-score":0.1}}
 func (p *Payload) UnsetRelevanceScore() *Payload {
 	p.aps().RelevanceScore = nil
+	return p
+}
+
+func (p *Payload) Timestamp(t int64) *Payload {
+	p.aps().Timestamp = t
+	return p
+}
+
+func (p *Payload) Event(event string) *Payload {
+	p.aps().Event = event
+	return p
+}
+
+func (p *Payload) ContentState(contentState interface{}) *Payload {
+	p.aps().ContentState = contentState
+	return p
+}
+
+func (p *Payload) AttributesType(attributesType string) *Payload {
+	p.aps().Event = attributesType
 	return p
 }
 
