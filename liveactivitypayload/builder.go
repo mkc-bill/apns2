@@ -1,6 +1,6 @@
 // Package payload is a helper package which contains a payload
 // builder to make constructing notification payloads easier.
-package payload1
+package liveacvititypayload
 
 import (
 	"encoding/json"
@@ -113,4 +113,3 @@ func (p *Payload) MarshalJSON() ([]byte, error) {
 func (p *Payload) aps() *aps {
 	return p.content["aps"].(*aps)
 }
- 
