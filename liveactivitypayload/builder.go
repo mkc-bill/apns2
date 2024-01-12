@@ -2,6 +2,10 @@
 // builder to make constructing notification payloads easier.
 package payload1
 
+import (
+	"encoding/json"
+)
+
 // InterruptionLevel defines the value for the payload aps interruption-level
 type EInterruptionLevel string
 
@@ -101,6 +105,12 @@ func (p *Payload) Attributes() *Payload {
 	return p
 }
 
+// MarshalJSON returns the JSON encoded version of the Payload
+func (p *Payload) MarshalJSON() ([]byte, error) {
+	return json.Marshal(p.content)
+}
+
 func (p *Payload) aps() *aps {
 	return p.content["aps"].(*aps)
 }
+ 
