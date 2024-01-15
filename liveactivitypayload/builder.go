@@ -38,6 +38,7 @@ type aps struct {
 	ContentState   interface{} `json:"content-state"`
 	AttributesType string      `json:"attributes-type"`
 	Attributes     interface{} `json:"attributes,omitempty"`
+	DismissalDate  int64       `json:"dismissal-date,omitempty"`
 }
 
 // NewPayload returns a new Payload struct
