@@ -106,6 +106,12 @@ func (p *Payload) Attributes() *Payload {
 	return p
 }
 
+func (p *Payload) DismissalDate(t int64) *Payload {
+
+	p.aps().DismissalDate = t
+	return p
+}
+
 // MarshalJSON returns the JSON encoded version of the Payload
 func (p *Payload) MarshalJSON() ([]byte, error) {
 	return json.Marshal(p.content)
